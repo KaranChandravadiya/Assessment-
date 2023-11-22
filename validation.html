@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Strength Checker</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="passChecker.jquery.js"></script>
+    <style>
+        #password {
+            margin-bottom: 10px;
+        }
+
+        #message {
+            color: #555;
+        }
+
+        .weak {
+            color: red;
+        }
+
+        .medium {
+            color: orange;
+        }
+
+        .strong {
+            color: green;
+        }
+        input {
+            position: absolute;
+            top: 45%;
+            left: 29%;
+            padding: 20px 50px;
+            width: 40%;
+            font-size: large;
+        }
+        #message{
+            position: absolute;
+            top: 57%;
+            left: 43%;
+            padding: 20px 50px;
+            width: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+    <input type="password" id="password" placeholder="Enter your password">
+    <div id="message"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#password').keyup(function() {
+                let password = $(this).val();
+                let message = $('#message');
+                let strength = '';
+
+                // Check the password strength based on criteria
+                if (password.length < 8) {
+                    strength = 'Weak';
+                    message.removeClass().addClass('weak');
+                } else if (password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*()_+]/.test(password)) {
+                    strength = 'Strong';
+                    message.removeClass().addClass('strong');
+                } else {
+                    strength = 'Medium';
+                    message.removeClass().addClass('medium');
+                }
+
+                message.text('Strength: ' + strength);
+            });
+        });
+    </script>
+</body>
+</html>
+
